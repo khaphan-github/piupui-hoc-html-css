@@ -19,23 +19,26 @@ def create_folders_with_index(titles):
 
 
 def zip_folders(titles):
-    for index, title in enumerate(titles, start=1):
-        folder_name = f"{index:02d}_{title.replace(' ', '_').replace(':', '').replace('&', 'and').replace('!', '')}"
-        zip_filename = os.path.join(folder_name, f"{folder_name}.zip")
+    try:
+        for index, title in enumerate(titles, start=1):
+            folder_name = f"{index:02d}_{title.replace(' ', '_').replace(':', '').replace('&', 'and').replace('!', '')}"
+            zip_filename = os.path.join(folder_name, f"{folder_name}.zip")
+            
+            # Remove the existing zip file if it exists
+            if os.path.exists(zip_filename):
+                os.remove(zip_filename)
+                print(f"Existing zip file '{zip_filename}' removed.\n")
+            
+            # Create a new zip file inside the folder
+            with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
+                for root, _, files in os.walk(folder_name):
+                    for file in files:
+                        file_path = os.path.join(root, file)
+                        zipf.write(file_path, os.path.relpath(file_path, folder_name))
+            print(f"Folder '{folder_name}' has been zipped into '{zip_filename}'.\n")
+    except Exception as e:
+        create_folders_with_index(titles)
         
-        # Remove the existing zip file if it exists
-        if os.path.exists(zip_filename):
-            os.remove(zip_filename)
-            print(f"Existing zip file '{zip_filename}' removed.\n")
-        
-        # Create a new zip file inside the folder
-        with zipfile.ZipFile(zip_filename, 'w', zipfile.ZIP_DEFLATED) as zipf:
-            for root, _, files in os.walk(folder_name):
-                for file in files:
-                    file_path = os.path.join(root, file)
-                    zipf.write(file_path, os.path.relpath(file_path, folder_name))
-        print(f"Folder '{folder_name}' has been zipped into '{zip_filename}'.\n")
-
 import subprocess
 
 def run_git_commands():
@@ -56,6 +59,5 @@ def run_git_commands():
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
-# create_folders_with_index(titles)
 zip_folders(titles)
 run_git_commands()
