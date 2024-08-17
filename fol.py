@@ -57,6 +57,6 @@ def run_git_commands():
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
-create_folders_with_index(titles)
-# zip_folders(titles)
+# create_folders_with_index(titles)
+zip_folders(titles)
 run_git_commands()
