@@ -21,7 +21,7 @@ def create_folders_with_index(titles):
 def zip_folders(titles):
     try:
         for index, title in enumerate(titles, start=1):
-            folder_name = f"{index:02d}_{title.replace(' ', '_').replace(':', '').replace('&', 'and').replace('!', '')}"
+            folder_name = f"{index:02d}_{title.replace(' ', '-').replace(':', '').replace('&', 'and').replace('!', '').replace(',', '')}"
             zip_filename = os.path.join(folder_name, f"{folder_name}.zip")
             
             # Remove the existing zip file if it exists
