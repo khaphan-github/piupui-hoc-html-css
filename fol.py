@@ -22,8 +22,8 @@ def zip_folders(titles):
     try:
         for index, title in enumerate(titles, start=1):
             folder_name = f"{index:02d}_{title.replace(' ', '_').replace(':', '').replace('&', 'and').replace('!', '')}"
-            folder_name = slugify(folder_name, separator='-', lowercase=False, remove_punct=False)
-            zip_filename = os.path.join(folder_name, f"{folder_name}.zip")
+            z_folder_name = slugify(folder_name, separator='-', lowercase=False, remove_punct=False)
+            zip_filename = os.path.join(folder_name, f"{z_folder_name}.zip")
             
             # Remove the existing zip file if it exists
             if os.path.exists(zip_filename):
