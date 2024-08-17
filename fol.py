@@ -1,22 +1,12 @@
 import os
 import zipfile
 
-titles = [
-    "Chào mừng đến với khóa học HTML & CSS!",
-    "Làm quen với thẻ HTML đầu tiên, thẻ Heading",
-    "Tạo một trang báo!",
-    "Thẻ chèn hình ảnh - <img>",
-    "Khái niệm Nesting",
-    "Nút bấm (Buttons)",
-    "Thẻ nhập liệu",
-    "Xây dựng trang Google!",
-    "Thẻ liên kết (Anchor tags)",
-    "Cấu trúc một trang HTML đúng chuẩn",
-    "Danh sách (Lists)",
-    "Xây dựng một trang web cá nhân",
-    "Triển khai trang web cá nhân của bạn lên mạng",
-    "Tổng kết phần 1: Build & Deploy Your First Website"
-]
+import pandas as pd
+
+df = pd.read_excel('./x.xlsx', engine='openpyxl')
+second_column = df.iloc[:, 1]
+titles=second_column.tolist()
+
 
 def create_folders_with_index(titles):
     for index, title in enumerate(titles, start=1):
@@ -67,6 +57,6 @@ def run_git_commands():
     except subprocess.CalledProcessError as e:
         print(f"An error occurred: {e}")
 
-# create_folders_with_index(titles)
-zip_folders(titles)
+create_folders_with_index(titles)
+# zip_folders(titles)
 run_git_commands()
