@@ -5,7 +5,7 @@ import pandas as pd
 
 df = pd.read_excel('./x.xlsx', engine='openpyxl')
 second_column = df.iloc[:, 1]
-titles=second_column.tolist()
+titles = second_column.tolist()
 
 
 def create_folders_with_index(titles):
@@ -16,7 +16,6 @@ def create_folders_with_index(titles):
             print(f"Folder '{folder_name}' created.")
         else:
             print(f"Folder '{folder_name}' already exists.")
-
 
 
 def zip_folders(titles):
